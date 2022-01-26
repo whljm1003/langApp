@@ -22,7 +22,7 @@ const AnimatedBox = Animated.createAnimatedComponent(Box);
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 
 export default function App() {
-  /*   const [up, setUp] = useState(false);
+  /*   const [up, setUp] = useState(false);;
   // useRef 랜더링시 값이 초기화되는걸 막기 위해
   const POSITION = useRef(new Animated.ValueXY({ x: 0, y: 300 })).current;
   const toggleUp = () => setUp((prev) => !prev);
