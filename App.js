@@ -71,16 +71,22 @@ export default function App() {
     toValue: 500,
     tension: 5,
     useNativeDriver: true,
+    // 애니메이션 속도 빨라지게 해줌 (goLeft랑 비교하기 위해 goLeft는 그대로 둠)
+    restDisplacementThreshold: 100,
+    restSpeedThreshold: 100,
   });
   // Pan Responders
   const panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
+      // 애니메이션이 시작할 때 발생하는 함수
+      onPanResponderGrant: () => onPressIn.start(),
+      // 애니메이션이 움직일 때 발생하는 함수
       onPanResponderMove: (_, { dx }) => {
         // console.log(dx);
         position.setValue(dx);
       },
-      onPanResponderGrant: () => onPressIn.start(),
+      // 애니메이션이 끝날 때 발생하는 함수
       onPanResponderRelease: (_, { dx }) => {
         if (dx < -250) {
           goLeft.start();
@@ -98,6 +104,7 @@ export default function App() {
     scale.setValue(1);
     position.setValue(0);
     setIndex((prev) => prev + 1);
+    // 애니메이션으로 주면 돌아올 때도 애니메이션이 적용되서 보기 안좋음
     // Animated.timing(position, {toValue:0, useNativeDriver:true}).start();
   };
   const closePress = () => {
@@ -118,7 +125,7 @@ export default function App() {
             transform: [
               { scale },
               { translateX: position },
-              { rotateY: rotation },
+              { rotateZ: rotation },
             ],
           }}
         >
